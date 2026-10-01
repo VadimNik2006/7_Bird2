@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import javax.swing.JFrame;
+
 public class Main {
     public static void main(String[] args){
         //System.out.println("Привет, Мир!");
@@ -8,6 +11,17 @@ public class Main {
         //b = new Bird();
         //b.fly();
         //b.fly();
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.print("Введите x центра окружности: ");
+        int x = in.nextInt();
+
+        System.out.print("Введите y центра окружности: ");
+        int y = in.nextInt();
+
+        System.out.print("Введите радиус окружности: ");
+        int radius = in.nextInt();
 
         Parrot p1 = new Parrot();
         //p1.fly();
@@ -55,12 +69,43 @@ public class Main {
         //System.out.println("Общее количество птиц в группе: " + f1.count());
         //f1.fly();
 
-        p1.hello(p2);
-        p1.hello(p1);
-        p1.hello((Parrot)p4);
-        p1.hello(p3);
-        p3.hello(p1);
-        p3.hello(p5);
+        //p1.hello(p2);
+        //p1.hello(p1);
+        //p1.hello((Parrot)p4);
+        //p1.hello(p3);
+        //p3.hello(p1);
+        //p3.hello(p5);
 
+        BirdFlock flock = new BirdFlock();
+        flock.add(p1);
+        flock.add(p2);
+        flock.add(p3);
+        flock.add(p4);
+        flock.add(p5);
+        flock.add(new Sparrow());
+        flock.add(new Sparrow());
+        flock.add(new Sparrow());
+
+        System.out.println("Птиц в окружности: " +
+                flock.countInCircle(x, y, radius));
+
+        JFrame window = new JFrame("Birds");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Scene scene = new Scene(flock, x, y, radius);
+        window.add(scene);
+
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+
+        in.nextLine();
+        System.out.print("Введите команду sit: ");
+        String command = in.nextLine();
+
+        if(command.equals("sit")){
+            scene.sitBirdsOnBranch();
+            scene.repaint();
+        }
     }
 }
